@@ -55,7 +55,8 @@ class Sort:
         
         algs = (
             ("Bubble Sort", self.bubble_sort),
-            ("Insertion Sort", self.insertion_sort)
+            ("Insertion Sort", self.insertion_sort),
+            ("Selection Sort", self.selection_sort),
         )
         i = 0
         while True:
@@ -85,6 +86,23 @@ class Sort:
                 yield True
                 j -= 1
         
+        return lst
+
+    def selection_sort(self, draw_info, ascending=True):
+        lst = draw_info.lst
+
+        for i in range(len(lst) - 1):
+            m = lst[i]
+            m_idx = i
+            for j in range(i + 1, len(lst)):
+                if (lst[j] < m and ascending) or (lst[j] > m and not ascending):
+                    m = lst[j]
+                    m_idx = j
+            if m_idx != i:
+                lst[i], lst[m_idx] = lst[m_idx], lst[i]
+                draw_list(draw_info, {i: draw_info.color.GREEN, m_idx: draw_info.color.RED}, True)
+                yield True
+
         return lst
 
 
@@ -164,7 +182,7 @@ def main():
 
     while not end:
         # ticks per second
-        clock.tick(120)
+        clock.tick(60)
 
         if sorting:
             # try to do next step in sorting
