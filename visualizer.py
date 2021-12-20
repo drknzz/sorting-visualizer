@@ -151,7 +151,7 @@ def draw_list(draw_info, color_positions={}, clear_bg=False):
         pygame.draw.rect(draw_info.screen, draw_info.color.BONE, clear_rect)
 
     for idx, x in enumerate(draw_info.lst):
-        rect = pygame.Rect(draw_x, draw_info.height - x * draw_info.unit_height, draw_info.unit_width, draw_info.unit_height * x) #TODO potential bug 31:00
+        rect = pygame.Rect(draw_x, draw_info.height - x * draw_info.unit_height, draw_info.unit_width, draw_info.unit_height * x)
         
         color = item_colors[idx % 3]
         if idx in color_positions:
