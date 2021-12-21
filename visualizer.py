@@ -57,6 +57,7 @@ class Sort:
             ("Bubble Sort", self.bubble_sort),
             ("Insertion Sort", self.insertion_sort),
             ("Selection Sort", self.selection_sort),
+            ("Merge Sort", self.merge_sort),
         )
         i = 0
         while True:
@@ -102,6 +103,46 @@ class Sort:
                 lst[i], lst[m_idx] = lst[m_idx], lst[i]
                 draw_list(draw_info, {i: draw_info.color.GREEN, m_idx: draw_info.color.RED}, True)
                 yield True
+
+        return lst
+
+    def merge_sort(self, draw_info, ascending=True):
+        lst = draw_info.lst
+
+        def merge_s(lst, start, end, ascending=True):
+            if start >= end:
+                return
+            
+            mid = (start + end) // 2
+            yield from merge_s(lst, start, mid, ascending)
+            yield from merge_s(lst, mid + 1, end, ascending)
+
+            i = start
+            j = mid + 1
+
+            while i <= mid and j <= end:
+                if (lst[i] <= lst[j] and ascending) or (lst[i] >= lst[j] and not ascending):
+                    i += 1
+                else:
+                    tmp = lst[j]
+                    idx = j
+
+                    while idx > i:
+                        lst[idx] = lst[idx - 1]
+                        idx -= 1
+                    
+                    lst[i] = tmp
+
+                    color_positions = {i: draw_info.color.GREEN, j: draw_info.color.RED}
+
+                    i += 1
+                    j += 1
+                    mid += 1
+
+                    draw_list(draw_info, color_positions, True)
+                    yield True
+
+        yield from merge_s(lst, 0, len(lst) - 1, ascending)
 
         return lst
 
