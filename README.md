@@ -20,6 +20,7 @@ All of the algorithms are sorting given array [in place](https://en.wikipedia.or
 * <a href="https://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>
 * <a href="https://en.wikipedia.org/wiki/Quicksort">Quick Sort</a>
 * <a href="https://en.wikipedia.org/wiki/Insertion_sort">Insertion Sort</a>
+* <a href="https://pl.wikipedia.org/wiki/Bogosort">Bogo Sort</a>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
