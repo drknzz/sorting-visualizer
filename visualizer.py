@@ -59,6 +59,7 @@ class Sort:
             ("Selection Sort", self.selection_sort),
             ("Merge Sort", self.merge_sort),
             ("Quick Sort", self.quick_sort),
+            ("Bogo Sort", self.bogo_sort),
         )
         i = 0
         while True:
@@ -181,6 +182,17 @@ class Sort:
 
         return lst
 
+    def bogo_sort(self, draw_info, ascending=True):
+        lst = draw_info.lst
+
+        while not all(lst[i] <= lst[i+1] if ascending else lst[i] >= lst[i+1] for i in range(len(lst) - 1)):
+            random.shuffle(lst)
+            draw_list(draw_info, {}, True)
+            yield True
+        
+        return lst
+
+
 
 def create_random_list(length=50, min_value=1, max_value=100):
     return [random.randint(min_value, max_value) for _ in range(length)]
@@ -278,7 +290,7 @@ def main():
 
             # restart
             if event.key == pygame.K_r:
-                draw_info.set_list(create_random_list())
+                draw_info.set_list(create_random_list(8))
                 sorting = False
             # start / stop
             elif event.key == pygame.K_SPACE:
