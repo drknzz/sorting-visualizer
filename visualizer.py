@@ -58,6 +58,7 @@ class Sort:
             ("Insertion Sort", self.insertion_sort),
             ("Selection Sort", self.selection_sort),
             ("Merge Sort", self.merge_sort),
+            ("Quick Sort", self.quick_sort),
         )
         i = 0
         while True:
@@ -143,6 +144,40 @@ class Sort:
                     yield True
 
         yield from merge_s(lst, 0, len(lst) - 1, ascending)
+
+        return lst
+
+    def quick_sort(self, draw_info, ascending=True):
+        lst = draw_info.lst
+
+        def quick_s(lst, start, end, ascending=True):
+            if start >= end:
+                return
+            
+            p_idx = (start + end) // 2
+            p = lst[p_idx]
+
+            lst[p_idx], lst[end] = lst[end], lst[p_idx]
+            draw_list(draw_info, {p_idx: draw_info.color.GREEN, end: draw_info.color.RED}, True)
+            yield True
+
+            j = start
+            for i in range(start, end):
+                if (lst[i] < p and ascending) or (lst[i] > p and not ascending):
+                    lst[j], lst[i] = lst[i], lst[j]
+                    color_positions = {i: draw_info.color.GREEN, j: draw_info.color.RED}
+                    j += 1
+                    draw_list(draw_info, color_positions, True)
+                    yield True
+            
+            lst[j], lst[end] = lst[end], lst[j]
+            draw_list(draw_info, {j: draw_info.color.GREEN, end: draw_info.color.RED}, True)
+            yield True
+
+            yield from quick_s(lst, start, j - 1, ascending)
+            yield from quick_s(lst, j + 1, end, ascending)
+
+        yield from quick_s(lst, 0, len(lst) - 1, ascending)
 
         return lst
 
