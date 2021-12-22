@@ -61,6 +61,7 @@ class Sort:
             ("Quick Sort", self.quick_sort),
             ("Bogo Sort", self.bogo_sort),
             ("Heap Sort", self.heap_sort),
+            ("Shell Sort", self.shell_sort),
         )
         i = 0
         while True:
@@ -227,6 +228,24 @@ class Sort:
                 draw_list(draw_info, {j: draw_info.color.GREEN, idx: draw_info.color.RED}, True)
                 yield True
                 j = idx
+
+        return lst
+
+    def shell_sort(self, draw_info, ascending=True):
+        lst = draw_info.lst
+
+        gap = len(lst) // 2
+        while gap:
+            i = 0
+            while i + gap < len(lst):
+                j = i + gap
+                while j-gap >= 0 and ((lst[j] < lst[j-gap] and ascending) or (lst[j] > lst[j-gap] and not ascending)):
+                    lst[j], lst[j-gap] = lst[j-gap], lst[j]
+                    draw_list(draw_info, {j: draw_info.color.GREEN, j-gap: draw_info.color.RED}, True)
+                    yield True
+                    j -= gap
+                i += 1
+            gap //= 2
 
         return lst
 
