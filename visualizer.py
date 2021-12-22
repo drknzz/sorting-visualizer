@@ -60,6 +60,7 @@ class Sort:
             ("Merge Sort", self.merge_sort),
             ("Quick Sort", self.quick_sort),
             ("Bogo Sort", self.bogo_sort),
+            ("Heap Sort", self.heap_sort),
         )
         i = 0
         while True:
@@ -192,6 +193,42 @@ class Sort:
         
         return lst
 
+    def heap_sort(self, draw_info, ascending=True):
+        lst = draw_info.lst
+
+        def build_heap(lst, ascending=True):
+            # ascending -> max heap / descending -> min heap
+            for i in range(1, len(lst)):
+                j = i
+                while j > 0 and ((lst[(j-1)//2] < lst[j] and ascending) or (lst[(j-1)//2] > lst[j] and not ascending)):
+                    lst[j], lst[(j-1)//2] = lst[(j-1)//2], lst[j]
+                    draw_list(draw_info, {j: draw_info.color.GREEN, (j-1)//2: draw_info.color.RED}, True)
+                    yield True
+                    j = (j-1)//2
+
+        yield from build_heap(lst, ascending)
+        
+        for i in range(len(lst) - 1):
+            lst[0], lst[len(lst)-1-i] = lst[len(lst)-1-i], lst[0]
+            draw_list(draw_info, {0: draw_info.color.GREEN, len(lst)-1-i: draw_info.color.RED}, True)
+            yield True
+
+            j = 0
+            while j*2+1 < len(lst)-1-i:
+                idx = j*2 + 1
+                if j*2+2 < len(lst)-1-i:
+                    if (lst[j*2+1] < lst[j*2+2] and ascending) or (lst[j*2+1] > lst[j*2+2] and not ascending):
+                        idx = j*2 + 2
+
+                if not ((lst[j] < lst[idx] and ascending) or (lst[j] > lst[idx] and not ascending)):
+                    break
+                
+                lst[j], lst[idx] = lst[idx], lst[j]
+                draw_list(draw_info, {j: draw_info.color.GREEN, idx: draw_info.color.RED}, True)
+                yield True
+                j = idx
+
+        return lst
 
 
 def create_random_list(length=50, min_value=1, max_value=100):
@@ -290,7 +327,7 @@ def main():
 
             # restart
             if event.key == pygame.K_r:
-                draw_info.set_list(create_random_list(8))
+                draw_info.set_list(create_random_list())
                 sorting = False
             # start / stop
             elif event.key == pygame.K_SPACE:
