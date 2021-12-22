@@ -22,6 +22,8 @@ All of the algorithms are sorting given array [in place](https://en.wikipedia.or
 * <a href="https://en.wikipedia.org/wiki/Insertion_sort">Insertion Sort</a>
 * <a href="https://pl.wikipedia.org/wiki/Bogosort">Bogo Sort</a>
 * <a href="https://en.wikipedia.org/wiki/Heapsort">Heap Sort</a>
+* <a href="https://en.wikipedia.org/wiki/Shellsort">Shell Sort</a>
+
 
 <!-- USAGE EXAMPLES -->
 ## Usage
