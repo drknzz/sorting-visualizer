@@ -62,6 +62,7 @@ class Sort:
             ("Bogo Sort", self.bogo_sort),
             ("Heap Sort", self.heap_sort),
             ("Shell Sort", self.shell_sort),
+            ("Cycle Sort", self.cycle_sort),
         )
         i = 0
         while True:
@@ -246,6 +247,28 @@ class Sort:
                     j -= gap
                 i += 1
             gap //= 2
+
+        return lst
+
+    def cycle_sort(self, draw_info, ascending=True):
+        lst = draw_info.lst
+
+        for cycle_start in range(len(lst) - 1):
+            dest = -1
+            while dest != cycle_start:
+                dest = cycle_start
+                for i in range(cycle_start + 1, len(lst)):
+                    if (lst[i] < lst[cycle_start] and ascending) or (lst[i] > lst[cycle_start] and not ascending):
+                        dest += 1
+                if cycle_start == dest:
+                    continue
+
+                while lst[cycle_start] == lst[dest]:
+                    dest += 1
+
+                lst[cycle_start], lst[dest] = lst[dest], lst[cycle_start]
+                draw_list(draw_info, {dest: draw_info.color.GREEN, cycle_start: draw_info.color.RED}, True)
+                yield True
 
         return lst
 
