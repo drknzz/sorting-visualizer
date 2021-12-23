@@ -23,6 +23,7 @@ All of the algorithms are sorting given array [in place](https://en.wikipedia.or
 * <a href="https://pl.wikipedia.org/wiki/Bogosort">Bogo Sort</a>
 * <a href="https://en.wikipedia.org/wiki/Heapsort">Heap Sort</a>
 * <a href="https://en.wikipedia.org/wiki/Shellsort">Shell Sort</a>
+* <a href="https://en.wikipedia.org/wiki/Cycle_sort">Cycle Sort</a>
 
 
 <!-- USAGE EXAMPLES -->
