@@ -8,6 +8,7 @@ Built with [Python](https://www.python.org/) and [pygame](https://www.pygame.org
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/65187002/146997744-289559ab-1462-45be-9e11-3b2c5a7c6044.gif">
+  <br>
   <img src="https://user-images.githubusercontent.com/65187002/146998990-e106c3d6-ca8a-4fa4-99b2-7e62a79756a1.gif">
 </p>
 
