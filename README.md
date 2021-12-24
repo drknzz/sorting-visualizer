@@ -37,6 +37,6 @@ All of the algorithms are sorting given array [in place](https://en.wikipedia.or
 
 * `SPACE` &thinsp;- start / stop sorting
 * `R`&emsp;&emsp;&thinsp;&thinsp;- restart
-* `A`&emsp;&emsp;&thinsp;&thinsp;- change sorting algorithm
 * `S`&emsp;&emsp;&thinsp;&thinsp;- change sorting order (ascending / descending)
+* `1`-`9`&thinsp;&thinsp;&thinsp;&thinsp;- change sorting algorithm
 
