@@ -11,6 +11,7 @@ class DrawInfo:
 
     FONT = pygame.font.SysFont('georgia', 30)
     FONT_LARGE = pygame.font.SysFont('georgia', 40)
+    FONT_SMALL = pygame.font.SysFont('georgia', 16)
 
     class Color:
         BLACK = (0, 0, 0)
@@ -50,9 +51,7 @@ class DrawInfo:
 
 
 class Sort:
-    def get_sort_alg(self):
-        '''generator function for changing sorting algorithms'''
-        
+    def get_sort_alg(self, number):
         algs = (
             ("Bubble Sort", self.bubble_sort),
             ("Insertion Sort", self.insertion_sort),
@@ -64,10 +63,8 @@ class Sort:
             ("Shell Sort", self.shell_sort),
             ("Cycle Sort", self.cycle_sort),
         )
-        i = 0
-        while True:
-            yield algs[i]
-            i = (i + 1) % len(algs)
+
+        return algs[number]
 
     def bubble_sort(self, draw_info, ascending=True):
         lst = draw_info.lst
@@ -297,14 +294,14 @@ def draw_text(draw_info, sort_alg_name, ascending=True):
     draw_info.screen.blit(alg_text_obj, (draw_info.width / 2 - alg_text_obj.get_width() / 2, top_alg))
 
     top_controls = top_alg + draw_info.FONT_LARGE.size(sort_alg_name)[1]
-    controls_text = "SPACE - start / stop   |   R - restart"
+    controls_text = "SPACE - start / stop   |   R - restart   |   S - change order"
     controls_text_obj = draw_info.FONT.render(controls_text, 1, draw_info.color.BLACK)
     draw_info.screen.blit(controls_text_obj, (draw_info.width / 2 - controls_text_obj.get_width() / 2, top_controls))
 
     top_controls_2 = top_controls + draw_info.FONT.size(controls_text)[1]
-    controls_tex_2 = "A - change algorithm   |   S - change order"
-    controls_text_2_obj = draw_info.FONT.render(controls_tex_2, 1, draw_info.color.BLACK)
-    draw_info.screen.blit(controls_text_2_obj, (draw_info.width / 2 - controls_text_2_obj.get_width() / 2, top_controls_2))
+    sort_text = "1 - Bubble | 2 - Insertion | 3 - Selection | 4 - Merge | 5 - Quick | 6 - Bogo | 7 - Heap | 8 - Shell | 9 - Cycle"
+    sort_text_obj = draw_info.FONT_SMALL.render(sort_text, 1, draw_info.color.BLACK)
+    draw_info.screen.blit(sort_text_obj, (draw_info.width / 2 - sort_text_obj.get_width() / 2, top_controls_2 + 5))
 
 
 def draw_list(draw_info, color_positions={}, clear_bg=False):
@@ -340,9 +337,7 @@ def main():
 
     clock = pygame.time.Clock()
 
-    # generator for sorting algorithms
-    choose_sort_alg_generator = sort.get_sort_alg()
-    sort_alg_name, sort_alg = next(choose_sort_alg_generator)
+    sort_alg_name, sort_alg = "Bubble Sort", sort.bubble_sort
 
     # generator for a single step in a sorting algorithm
     sort_step_generator = None
@@ -375,15 +370,15 @@ def main():
             elif event.key == pygame.K_SPACE:
                 sorting = not sorting
                 sort_step_generator = sort_alg(draw_info, ascending)
-            # change algorithm
-            elif event.key == pygame.K_a and not sorting:
-                sort_alg_name, sort_alg = next(choose_sort_alg_generator)
             # change order
             elif event.key == pygame.K_s and not sorting:
                 ascending = not ascending
             # quit
             elif event.key == pygame.K_ESCAPE:
                 end = True
+            # change algorithm
+            elif pygame.K_1 <= event.key <= pygame.K_9 and not sorting:
+                sort_alg_name, sort_alg = sort.get_sort_alg(event.key - pygame.K_1)
 
     pygame.quit()
 
