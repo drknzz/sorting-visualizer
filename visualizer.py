@@ -337,7 +337,7 @@ def main():
 
     clock = pygame.time.Clock()
 
-    sort_alg_name, sort_alg = "Bubble Sort", sort.bubble_sort
+    sort_alg_name, sort_alg = sort.get_sort_alg(0)
 
     # generator for a single step in a sorting algorithm
     sort_step_generator = None
